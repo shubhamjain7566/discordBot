@@ -35,8 +35,15 @@ client.on('message', msg => {
                     if (messageSend == 5) {
                         break;
                     }
+                    let link = results[count].link;
+                    try {
+                        link = decodeURI(link);
+                    } catch(e) { // catches a malformed URI
+                        console.error(e);
+                        continue;
+                    }    
                     messageSend++;
-                    msg.reply(results[count].link);
+                    msg.reply(link);
                 }
             }
             if(messageSend && msg["author"].id) {
